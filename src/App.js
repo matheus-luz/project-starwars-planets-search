@@ -1,11 +1,18 @@
 import React from 'react';
 import './App.css';
+import Header from './components/Header';
+import Table from './components/Table';
+
+import StartWarsProvider from './context/StarWarsProvider';
 
 function App() {
   return (
-    <main>
-      <h1>Hello App</h1>
-    </main>
+    <StartWarsProvider>
+      <main>
+        <Header />
+        <Table />
+      </main>
+    </StartWarsProvider>
   );
 }
 
