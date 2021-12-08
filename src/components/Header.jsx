@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
+import FilterValuesNumbers from './FilterValuesNumbers';
 
 function Header() {
   const { filterByName, setFilterByName } = useContext(StartWarsContext);
@@ -17,6 +18,7 @@ function Header() {
               setFilterByName({ name: value });
             } }
           />
+          <FilterValuesNumbers />
         </form>
       </div>
     </header>

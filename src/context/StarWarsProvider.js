@@ -5,6 +5,8 @@ import StartWarsContext from './StartWarsContext';
 function StartWarsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
+  const [filterByNumericValues, setFilterByNumericValues] = useState({});
+  const [submitFiltrar, setSubmitFiltrar] = useState(false);
 
   async function getAPI() {
     const r = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
@@ -13,10 +15,6 @@ function StartWarsProvider({ children }) {
     return setPlanets(results);
   }
 
-  // function handleSearch(name) {
-  //   return setFilterByName({ name });
-  // }
-
   useEffect(() => {
     getAPI();
   }, []);
@@ -24,7 +22,14 @@ function StartWarsProvider({ children }) {
   return (
     <StartWarsContext.Provider
       value={ {
-        data: planets, filterByName, setFilterByName } }
+        data: planets,
+        filterByName,
+        setFilterByName,
+        filterByNumericValues,
+        setFilterByNumericValues,
+        submitFiltrar,
+        setSubmitFiltrar,
+      } }
     >
       { children }
     </StartWarsContext.Provider>

@@ -2,10 +2,20 @@ import React, { useContext } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
 function Table() {
-  const { data, filterByName } = useContext(StartWarsContext);
+  const {
+    data, filterByName,
+    filterByNumericValues, submitFiltrar } = useContext(StartWarsContext);
+
+  const { column, comparion, value } = filterByNumericValues;
 
   const filterPlanets = data
     .filter((planetsFilter) => planetsFilter.name.includes(filterByName.name));
+
+  const filterNumbered = data.filter((numberPlanets) => (
+    console.log(numberPlanets)
+    // .includes(column)
+    // && numberPlanets.comparion.includes(comparion) && numberPlanets.value.includes(value)
+  ));
 
   function tablePlanets() {
     if (filterByName.name === '') {
@@ -40,6 +50,16 @@ function Table() {
     return mapPlanets;
   }
 
+  function filterButton() {
+    const planetsFilterSubmit = data.map((planet, index) => (
+      <div key={ index }>
+        <h1>{planet.name}</h1>
+        <h1>{filterByNumericValues.column}</h1>
+      </div>
+    ));
+    return planetsFilterSubmit;
+  }
+
   return (
     <div>
       <table>
@@ -59,7 +79,8 @@ function Table() {
             <th>Edited</th>
             <th>URL</th>
           </tr>
-          { tablePlanets() }
+          { submitFiltrar ? filterButton() : tablePlanets() }
+          { console.log(filterNumbered) }
         </tbody>
       </table>
     </div>
