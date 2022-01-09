@@ -1,64 +1,43 @@
-import React, { useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useContext, useEffect } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
 function Table() {
-  const {
-    data, filterByName,
-    filterByNumericValues, submitFiltrar } = useContext(StartWarsContext);
+  const { filterByName, planets, setPlanets } = useContext(StartWarsContext);
 
-  const { column, comparion, value } = filterByNumericValues;
+  // const { column, comparion, value } = filterByNumericValues;
 
-  const filterPlanets = data
-    .filter((planetsFilter) => planetsFilter.name.includes(filterByName.name));
+  const namePlanets = planets.filter((planet) => planet.name
+    .includes(filterByName.name));
 
-  const filterNumbered = data.filter((numberPlanets) => (
-    console.log(numberPlanets)
-    // .includes(column)
-    // && numberPlanets.comparion.includes(comparion) && numberPlanets.value.includes(value)
-  ));
+  // function filterPlanetsAll() {
+  //   const namePlanets = planets.filter((planet) => planet.name
+  //     .includes(filterByName.name));
+  //   setPlanets(namePlanets);
+  //   console.log('oi');
+  // }
 
-  function tablePlanets() {
-    if (filterByName.name === '') {
-      const planetsData = data.map((planet) => (
-        <tr key={ planet.name }>
-          <td>{planet.name}</td>
-          <td>{planet.rotation_period}</td>
-          <td>{planet.orbital_period}</td>
-          <td>{planet.diameter}</td>
-          <td>{planet.climate}</td>
-          <td>{planet.gravity}</td>
-          <td>{planet.terrain}</td>
-          <td>{planet.surface_water}</td>
-          <td>{planet.population}</td>
-        </tr>
-      ));
-      return planetsData;
-    }
-    const mapPlanets = filterPlanets.map((filter) => (
-      <tr key={ filter.name }>
-        <td>{filter.name}</td>
-        <td>{filter.rotation_period}</td>
-        <td>{filter.orbital_period}</td>
-        <td>{filter.diameter}</td>
-        <td>{filter.climate}</td>
-        <td>{filter.gravity}</td>
-        <td>{filter.terrain}</td>
-        <td>{filter.surface_water}</td>
-        <td>{filter.population}</td>
-      </tr>
-    ));
-    return mapPlanets;
-  }
+  // useEffect(() => {
+  //   const namePlanets = planets.filter((planet) => planet.name
+  //     .includes(filterByName.name));
+  //   setPlanets(namePlanets);
+  // }, [filterByName.name, setPlanets, planets]);
 
-  function filterButton() {
-    const planetsFilterSubmit = data.map((planet, index) => (
-      <div key={ index }>
-        <h1>{planet.name}</h1>
-        <h1>{filterByNumericValues.column}</h1>
-      </div>
-    ));
-    return planetsFilterSubmit;
-  }
+  // useCallback(
+  //   () => {
+  //     const namePlanets = planets.filter((planet) => planet.name.includes(filterByName.name));
+  //     setPlanets(namePlanets);
+  //     console.log('ola');
+  //   },
+  //   [planets, setPlanets, filterByName.name],
+  // );
+
+  // useEffect(() => {
+  //   const namePlanets = planets.filter((planet) => planet.name.includes(filterByName.name));
+  //   setPlanets(namePlanets);
+  //   console.log(namePlanets);
+  //   console.log('hello');
+  // }, [planets, filterByName.name, setPlanets]);
 
   return (
     <div>
@@ -79,8 +58,19 @@ function Table() {
             <th>Edited</th>
             <th>URL</th>
           </tr>
-          { submitFiltrar ? filterButton() : tablePlanets() }
-          { console.log(filterNumbered) }
+          { planets.map((filter) => (
+            <tr key={ filter.name }>
+              <td>{filter.name}</td>
+              <td>{filter.rotation_period}</td>
+              <td>{filter.orbital_period}</td>
+              <td>{filter.diameter}</td>
+              <td>{filter.climate}</td>
+              <td>{filter.gravity}</td>
+              <td>{filter.terrain}</td>
+              <td>{filter.surface_water}</td>
+              <td>{filter.population}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

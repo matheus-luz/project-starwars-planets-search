@@ -10,11 +10,26 @@ function FilterValuesNumbers() {
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState('0');
 
-  const { setFilterByNumericValues, setSubmitFiltrar } = useContext(StartWarsContext);
+  const { setFilterByNumericValues, planets, setPlanets } = useContext(StartWarsContext);
 
   function handleClick() {
-    setFilterByNumericValues({ column, comparison, value });
-    setSubmitFiltrar(true);
+    setFilterByNumericValues([column, comparison, value]);
+    const numberFilter = planets.filter((planet) => {
+      if (comparison === 'maior que') {
+        return planet[column] > value;
+      }
+
+      if (comparison === 'menor que') {
+        return planet[column] < value;
+      }
+
+      if (comparison === 'igual a') {
+        return planet[column] === value;
+      }
+
+      return numberFilter;
+    });
+    setPlanets(numberFilter);
   }
 
   return (
@@ -54,7 +69,7 @@ function FilterValuesNumbers() {
       <button
         testid="button-filter"
         type="button"
-        onClick={ handleClick }
+        onClick={ () => handleClick() }
       >
         Filtrar
       </button>
