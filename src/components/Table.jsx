@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
 function Table() {
-  const { filterByName, planets, setPlanets } = useContext(StartWarsContext);
+  const { filterByName, planets } = useContext(StartWarsContext);
 
   // const { column, comparion, value } = filterByNumericValues;
 
@@ -58,7 +58,7 @@ function Table() {
             <th>Edited</th>
             <th>URL</th>
           </tr>
-          { planets.map((filter) => (
+          { namePlanets.map((filter) => (
             <tr key={ filter.name }>
               <td>{filter.name}</td>
               <td>{filter.rotation_period}</td>

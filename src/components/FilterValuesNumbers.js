@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
@@ -9,10 +10,12 @@ function FilterValuesNumbers() {
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState('0');
+  // const [submit, setSubmit] = useState(false);
 
   const { setFilterByNumericValues, planets, setPlanets } = useContext(StartWarsContext);
 
   function handleClick() {
+    // setSubmit(true);
     setFilterByNumericValues([column, comparison, value]);
     const numberFilter = planets.filter((planet) => {
       if (comparison === 'maior que') {
@@ -26,11 +29,14 @@ function FilterValuesNumbers() {
       if (comparison === 'igual a') {
         return planet[column] === value;
       }
-
       return numberFilter;
     });
     setPlanets(numberFilter);
   }
+
+  // useEffect(() => {
+  //   handleClick();
+  // }, [submit]);
 
   return (
     <di>
