@@ -1,11 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
 function Table() {
-  const { filterByName, planets } = useContext(StartWarsContext);
+  const { filterByName, planets, setPlanets } = useContext(StartWarsContext);
+  const isMounted = useRef(false);
 
-  // const { column, comparion, value } = filterByNumericValues;
+  // useEffect(() => {
+  //   if (isMounted.current) {
+  //   //  did update only;
+  //     console.log('update');
+  //     const namePlanets = planets.filter((planet) => planet.name
+  //       .includes(filterByName.name));
+  //     setPlanets(namePlanets);
+  //   } else {
+  //     isMounted.current = true;
+  //     // did Mount;
+  //     console.log('mount');
+  //   }
+  // }, []);
 
   const namePlanets = planets.filter((planet) => planet.name
     .includes(filterByName.name));
@@ -38,6 +51,17 @@ function Table() {
   //   console.log(namePlanets);
   //   console.log('hello');
   // }, [planets, filterByName.name, setPlanets]);
+
+  // const fetchRecipe = useCallback(
+  //   async () => {
+  //     const { drinks } = await fetchDrinksRecipeByID(id);
+  //     const { meals } = await fetchRecomendation(FOOD_NAME_URL);
+  //     setFoodsList(meals);
+  //     setRecipe(drinks[0]);
+  //     console.log(drinks[0]);
+  //     setIsLoading(false);
+  //   }, [id],
+  // );
 
   return (
     <div>

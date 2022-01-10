@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
 const columnOptions = ['population', 'orbital_period', 'diameter',
@@ -10,36 +10,39 @@ function FilterValuesNumbers() {
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState('0');
-  // const [submit, setSubmit] = useState(false);
 
-  const { setFilterByNumericValues, planets, setPlanets } = useContext(StartWarsContext);
+  const {
+    filterByNumericValues,
+    setFilterByNumericValues, planets, setPlanets } = useContext(StartWarsContext);
 
   function handleClick() {
-    // setSubmit(true);
-    setFilterByNumericValues([column, comparison, value]);
+    setFilterByNumericValues((prevState) => ([
+      ...prevState,
+      { column, comparison, value },
+    ]));
     const numberFilter = planets.filter((planet) => {
       if (comparison === 'maior que') {
-        return planet[column] > value;
+        return Number(planet[column]) > Number(value);
       }
 
       if (comparison === 'menor que') {
-        return planet[column] < value;
+        return Number(planet[column]) < Number(value);
       }
 
       if (comparison === 'igual a') {
-        return planet[column] === value;
+        return Number(planet[column]) === Number(value);
       }
       return numberFilter;
     });
     setPlanets(numberFilter);
   }
 
-  // useEffect(() => {
-  //   handleClick();
-  // }, [submit]);
+  function handleReset() {
+    // console.log('ola');
+  }
 
   return (
-    <di>
+    <div>
       <label htmlFor="coluna">
         Coluna
         <select
@@ -75,11 +78,17 @@ function FilterValuesNumbers() {
       <button
         testid="button-filter"
         type="button"
+        data-testid="button-filter"
         onClick={ () => handleClick() }
       >
         Filtrar
       </button>
-    </di>
+      <div>
+        <p>{`${column} ${comparison} ${value}`}</p>
+        {/* { console.log(filterByNumericValues) } */}
+        <button type="button" onClick={ () => handleReset() }>Apagar</button>
+      </div>
+    </div>
   );
 }
 
