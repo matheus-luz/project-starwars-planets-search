@@ -1,19 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
-
-const columnOptions = ['population', 'orbital_period', 'diameter',
-  'rotation_period', 'surface_water'];
-const comparisonOptions = ['maior que', 'menor que', 'igual a'];
+import '../App.css';
 
 function FilterValuesNumbers() {
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState('0');
+  const comparisonOptions = ['maior que', 'menor que', 'igual a'];
+  const [filterColumn, setFilterColumn] = useState([
+    'population', 'orbital_period', 'diameter',
+    'rotation_period', 'surface_water']);
 
-  const {
-    filterByNumericValues,
+  const { filterByNumericValues,
     setFilterByNumericValues, planets, setPlanets } = useContext(StartWarsContext);
+
+  useEffect(() => {
+    if (filterByNumericValues[0]) {
+      const columnRemove = filterColumn
+        .filter((arrColumn) => arrColumn !== filterByNumericValues[0].column);
+      setFilterColumn(columnRemove);
+    }
+  }, [filterByNumericValues]);
 
   function handleClick() {
     setFilterByNumericValues((prevState) => ([
@@ -37,8 +45,8 @@ function FilterValuesNumbers() {
     setPlanets(numberFilter);
   }
 
-  function handleReset() {
-    // console.log('ola');
+  function handleResetFilter() {
+    console.log('reset');
   }
 
   return (
@@ -51,7 +59,7 @@ function FilterValuesNumbers() {
           id="coluna"
           onChange={ ({ target }) => setColumn(target.value) }
         >
-          { columnOptions.map((option, index) => (
+          { filterColumn.map((option, index) => (
             <option key={ index } value={ option }>{option}</option>
           ))}
         </select>
@@ -84,9 +92,20 @@ function FilterValuesNumbers() {
         Filtrar
       </button>
       <div>
-        <p>{`${column} ${comparison} ${value}`}</p>
-        {/* { console.log(filterByNumericValues) } */}
-        <button type="button" onClick={ () => handleReset() }>Apagar</button>
+        { filterByNumericValues.map((selectPlanet, index) => (
+          <div className="filterNumeric" key={ index }>
+            <p>
+              {`${selectPlanet.column} ${selectPlanet.comparison} ${selectPlanet.value}`}
+            </p>
+            <button
+              type="button"
+              onClick={ () => handleResetFilter() }
+            >
+              Apagar
+
+            </button>
+          </div>
+        )) }
       </div>
     </div>
   );

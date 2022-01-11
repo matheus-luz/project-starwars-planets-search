@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
 function Table() {
-  const { filterByName, planets, setPlanets } = useContext(StartWarsContext);
-  const isMounted = useRef(false);
+  const { filterByName, planets } = useContext(StartWarsContext);
+  // const isMounted = useRef(false);
 
   // useEffect(() => {
   //   if (isMounted.current) {
@@ -20,7 +20,7 @@ function Table() {
   //   }
   // }, []);
 
-  const namePlanets = planets.filter((planet) => planet.name
+  const filterPlanetsName = planets.filter((planet) => planet.name
     .includes(filterByName.name));
 
   // function filterPlanetsAll() {
@@ -82,7 +82,7 @@ function Table() {
             <th>Edited</th>
             <th>URL</th>
           </tr>
-          { namePlanets.map((filter) => (
+          { filterPlanetsName.map((filter) => (
             <tr key={ filter.name }>
               <td>{filter.name}</td>
               <td>{filter.rotation_period}</td>

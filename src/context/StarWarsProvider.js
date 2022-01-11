@@ -14,12 +14,6 @@ function StartWarsProvider({ children }) {
     return setPlanets(results);
   }
 
-  // useEffect(() => {
-  //   const namePlanets = planets.filter((planet) => planet.name
-  //     .includes(filterByName.name));
-  //   setPlanets(namePlanets);
-  // }, [planets, filterByName.name]);
-
   useEffect(() => {
     getAPI();
   }, []);
