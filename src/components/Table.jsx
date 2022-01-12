@@ -3,65 +3,10 @@ import React, { useContext } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
 function Table() {
-  const { filterByName, planets } = useContext(StartWarsContext);
-  // const isMounted = useRef(false);
+  const { filterByName, data } = useContext(StartWarsContext);
 
-  // useEffect(() => {
-  //   if (isMounted.current) {
-  //   //  did update only;
-  //     console.log('update');
-  //     const namePlanets = planets.filter((planet) => planet.name
-  //       .includes(filterByName.name));
-  //     setPlanets(namePlanets);
-  //   } else {
-  //     isMounted.current = true;
-  //     // did Mount;
-  //     console.log('mount');
-  //   }
-  // }, []);
-
-  const filterPlanetsName = planets.filter((planet) => planet.name
+  const filterPlanetsName = data.filter((planet) => planet.name
     .includes(filterByName.name));
-
-  // function filterPlanetsAll() {
-  //   const namePlanets = planets.filter((planet) => planet.name
-  //     .includes(filterByName.name));
-  //   setPlanets(namePlanets);
-  //   console.log('oi');
-  // }
-
-  // useEffect(() => {
-  //   const namePlanets = planets.filter((planet) => planet.name
-  //     .includes(filterByName.name));
-  //   setPlanets(namePlanets);
-  // }, [filterByName.name, setPlanets, planets]);
-
-  // useCallback(
-  //   () => {
-  //     const namePlanets = planets.filter((planet) => planet.name.includes(filterByName.name));
-  //     setPlanets(namePlanets);
-  //     console.log('ola');
-  //   },
-  //   [planets, setPlanets, filterByName.name],
-  // );
-
-  // useEffect(() => {
-  //   const namePlanets = planets.filter((planet) => planet.name.includes(filterByName.name));
-  //   setPlanets(namePlanets);
-  //   console.log(namePlanets);
-  //   console.log('hello');
-  // }, [planets, filterByName.name, setPlanets]);
-
-  // const fetchRecipe = useCallback(
-  //   async () => {
-  //     const { drinks } = await fetchDrinksRecipeByID(id);
-  //     const { meals } = await fetchRecomendation(FOOD_NAME_URL);
-  //     setFoodsList(meals);
-  //     setRecipe(drinks[0]);
-  //     console.log(drinks[0]);
-  //     setIsLoading(false);
-  //   }, [id],
-  // );
 
   return (
     <div>
@@ -84,7 +29,7 @@ function Table() {
           </tr>
           { filterPlanetsName.map((filter) => (
             <tr key={ filter.name }>
-              <td>{filter.name}</td>
+              <td data-testid="planet-name">{filter.name}</td>
               <td>{filter.rotation_period}</td>
               <td>{filter.orbital_period}</td>
               <td>{filter.diameter}</td>

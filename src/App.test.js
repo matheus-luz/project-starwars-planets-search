@@ -279,7 +279,7 @@ describe('3 - Crie um filtro para valores numéricos', () => {
   });
 });
 
-describe.only('4 - Não utilize filtros repetidos', () => {
+describe('4 - Não utilize filtros repetidos', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
@@ -316,7 +316,7 @@ describe.only('4 - Não utilize filtros repetidos', () => {
   });
 });
 
-describe('5 - Apague o filtro de valores numéricos e desfaça as filtragens dos dados da tabela ao clicar no ícone de `X` de um dos filtros', () => {
+describe.only('5 - Apague o filtro de valores numéricos e desfaça as filtragens dos dados da tabela ao clicar no ícone de `X` de um dos filtros', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
@@ -338,7 +338,6 @@ describe('5 - Apague o filtro de valores numéricos e desfaça as filtragens dos
     expect(await screen.findAllByRole(ROW_ROLE_SELECTOR)).toHaveLength(8);
 
     await removeFilter();
-
     expect(await screen.findAllByRole(ROW_ROLE_SELECTOR)).toHaveLength(11);
   });
 
