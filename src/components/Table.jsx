@@ -1,12 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
 function Table() {
+  const [filterPlanetsName, setFilterPlanetsName] = useState([]);
   const { filterByName, data } = useContext(StartWarsContext);
 
-  const filterPlanetsName = data.filter((planet) => planet.name
-    .includes(filterByName.name));
+  useEffect(() => {
+    const filter = data.filter((planet) => planet.name
+      .includes(filterByName.name));
+    setFilterPlanetsName(filter);
+  }, [data]);
 
   return (
     <div>

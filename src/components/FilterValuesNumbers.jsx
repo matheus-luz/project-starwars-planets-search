@@ -21,6 +21,7 @@ function FilterValuesNumbers() {
         .filter((arrColumn) => arrColumn !== filterByNumericValues[0].column);
       setFilterColumn(columnRemove);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterByNumericValues]);
 
   function handleClick() {
@@ -31,8 +32,7 @@ function FilterValuesNumbers() {
   }
 
   useEffect(() => {
-    console.log(filterByNumericValues);
-    if (filterByNumericValues[0]) {
+    if (filterByNumericValues.length > 0) {
       filterByNumericValues.forEach((filter) => {
         const numberFilter = planets.filter((planet) => {
           if (filter.comparison === 'maior que') {
@@ -50,6 +50,8 @@ function FilterValuesNumbers() {
         });
         setData(numberFilter);
       });
+    } else {
+      setData(planets);
     }
   }, [filterByNumericValues, planets, setData]);
 
@@ -104,16 +106,16 @@ function FilterValuesNumbers() {
         </button>
         <div>
           { filterByNumericValues.map((select, index) => (
-            <div data-testid="filter" className="filterNumeric" key={ index }>
-              <button
-                className="button-reset"
-                type="button"
-                onClick={ () => handleResetFilter(select.column) }
-              >
-                X
-              </button>
+            <div data-testid="filter" key={ index } className="filterNumeric">
               <p>
                 {`${select.column} ${select.comparison} ${select.value}`}
+                <button
+                  className="button-reset"
+                  type="button"
+                  onClick={ () => handleResetFilter(select.column) }
+                >
+                  X
+                </button>
               </p>
             </div>
           )) }

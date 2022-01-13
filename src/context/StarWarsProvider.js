@@ -12,6 +12,8 @@ function StartWarsProvider({ children }) {
     const r = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
     const json = await r.json();
     const { results } = json;
+    // const orderPlanets = results.sort((a, b) => a.name - b.name);
+    // console.log(orderPlanets);
     setData([...results]);
     return setPlanets([...results]);
   }
