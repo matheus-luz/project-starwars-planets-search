@@ -1,16 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import StartWarsContext from '../context/StartWarsContext';
 
 function Table() {
-  const [filterPlanetsName, setFilterPlanetsName] = useState([]);
   const { filterByName, data } = useContext(StartWarsContext);
 
-  useEffect(() => {
-    const filter = data.filter((planet) => planet.name
-      .includes(filterByName.name));
-    setFilterPlanetsName(filter);
-  }, [data]);
+  const filterOrder = data.filter((planet) => planet.name
+    .includes(filterByName.name));
 
   return (
     <div>
@@ -31,7 +27,7 @@ function Table() {
             <th>Edited</th>
             <th>URL</th>
           </tr>
-          { filterPlanetsName.map((filter) => (
+          { filterOrder.map((filter) => (
             <tr key={ filter.name }>
               <td data-testid="planet-name">{filter.name}</td>
               <td>{filter.rotation_period}</td>
