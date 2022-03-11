@@ -4,6 +4,9 @@ import StartWarsContext from '../context/StartWarsContext';
 
 function Table() {
   const { filterByName, data } = useContext(StartWarsContext);
+  const table = [
+    'Name', 'Rotation Period', 'Diameter', 'Climate', 'Gravity',
+    'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'URL'];
 
   const filterOrder = data.filter((planet) => planet.name
     .includes(filterByName.name));
@@ -13,19 +16,9 @@ function Table() {
       <table>
         <tbody>
           <tr>
-            <th>Name</th>
-            <th>Rotation Period</th>
-            <th>Orbital Period</th>
-            <th>Diameter</th>
-            <th>Climate</th>
-            <th>Gravity</th>
-            <th>Terrain</th>
-            <th>Surface Water</th>
-            <th>Population</th>
-            <th>Films</th>
-            <th>Created</th>
-            <th>Edited</th>
-            <th>URL</th>
+            {table.map((th) => (
+              <th key={ th }>{th}</th>
+            ))}
           </tr>
           { filterOrder.map((filter) => (
             <tr key={ filter.name }>
